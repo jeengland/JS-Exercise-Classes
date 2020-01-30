@@ -146,16 +146,20 @@ class Instructor extends Lambdasian {
     return `${student.name} recieves a perfect score on ${subject}`
   }
   assess(student){
+    // Store the initial value
     let init = student.grade;
+    // Run a coin toss to see if you're going to either add or subtract a random number of points
     if (Math.random() > .5) {
       student.grade += Math.floor(Math.random() * 21);
     }
     else {
       student.grade -= Math.floor(Math.random() * 21);
     }
+    // If the grade goes below 0 cancel and set it to what it started as
     if (student.grade < 0) {
       student.grade = init;
     }
+    // Log the grade so we can see progress happening
     console.log(student.grade);
   }
 }
@@ -193,10 +197,14 @@ class Student extends Lambdasian {
     return `${this.name} has begun sprint challenge on ${subject}`
   }
   graduate(instructor) {
+    // Run a check to see if the grade is above 70 yet
     if (this.grade < 70) {
+      // If not run the assess function
       instructor.assess(this);
+      // Recursively call on the graduate function to run the check again
       this.graduate(instructor)  
     }
+  // If it passes the check return string to be console logged, therfore ending the looping functions all at once
   return `${this.name} has graduated`;
   }
 }
